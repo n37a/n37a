@@ -4,7 +4,7 @@
   <img src="https://komarev.com/ghpvc/?username=n37a&color=blueviolet" alt="Profile Views" />
 </p>
 
----
+
 
 
 ## Stack
@@ -19,7 +19,7 @@
   <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/vscode/vscode-original.svg" alt="VS Code" width="50" height="50"/>
 </p>
 
----
+
 
 ## GitHub Stats
 
@@ -29,29 +29,10 @@
   <img src="https://github-readme-streak-stats.herokuapp.com/?user=n37a&theme=radical" alt="GitHub Streak" />
 </div>
 
----
+
 
 ## Most Used Languages
 
 <div align="center">
   <img src="https://github-stats-extended.vercel.app/api/top-langs/?username=n37a&layout=compact&theme=radical" alt="Most Used Languages" />
 </div>
-
----
-
-## 🐍 Python Beginner Journey
-
-```python
-class BeginnerDeveloper:
-    def __init__(self):
-        self.name = "[Your Name]"
-        self.languages = ["Python"]
-        self.os = ["Linux"]
-        self.skills = ["Learning", "Coding", "Troubleshooting"]
-        self.goal = "Become a proficient developer"
-    
-    def say_hello(self):
-        print("Hello, world! I'm on my coding journey! 🚀")
-
-me = BeginnerDeveloper()
-me.say_hello()
