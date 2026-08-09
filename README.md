@@ -7,7 +7,7 @@
 ---
 
 
-## 🛠️ Tech Stack
+## Stack
 
 ### Languages & Tools I'm Learning:
 
@@ -21,7 +21,7 @@
 
 ---
 
-## 📊 GitHub Stats
+## GitHub Stats
 
 <div align="center">
   <img src="https://github-readme-stats.vercel.app/api?username=n37a&show_icons=true&theme=radical" alt="GitHub Stats" />
@@ -31,10 +31,10 @@
 
 ---
 
-## 🎯 Most Used Languages
+## Most Used Languages
 
 <div align="center">
-  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=n37a&layout=compact&theme=radical&langs_count=8" alt="Most Used Languages" />
+  <img src="https://github-stats-extended.vercel.app/api/top-langs/?username=n37a&layout=compact&theme=radical" alt="Most Used Languages" />
 </div>
 
 ---
