@@ -1,4 +1,4 @@
-<h1 align="center">Hi there, I'm [Your Name] 👋</h1>
+<h1 align="center">Hi there, I'm n37a</h1>
 
 <p align="center">
   <img src="https://komarev.com/ghpvc/?username=n37a&color=blueviolet" alt="Profile Views" />
@@ -6,16 +6,6 @@
 
 ---
 
-## 🚀 About Me
-
-I'm a passionate **beginner** developer diving into the world of programming! 
-
-- 🌱 Currently learning **Python** and **Linux** system administration
-- 💻 Exploring the open-source world
-- 🔧 Love tinkering with the terminal and bash scripts
-- 📚 Always eager to learn new technologies
-
----
 
 ## 🛠️ Tech Stack
 
@@ -34,7 +24,7 @@ I'm a passionate **beginner** developer diving into the world of programming!
 ## 📊 GitHub Stats
 
 <div align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=your-github-username&show_icons=true&theme=radical" alt="GitHub Stats" />
+  <img src="https://github-readme-stats.vercel.app/api?username=n37a&show_icons=true&theme=radical" alt="GitHub Stats" />
   <br/>
   <img src="https://github-readme-streak-stats.herokuapp.com/?user=n37a&theme=radical" alt="GitHub Streak" />
 </div>
