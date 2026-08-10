@@ -24,8 +24,6 @@
 ## GitHub Stats
 
 <div align="center">
-  <img src="https://githubcard.com/n37a.svg" alt="GitHub Stats" />
-  <br/>
   <img src="https://github-readme-streak-stats.herokuapp.com/?user=n37a&theme=radical" alt="GitHub Streak" />
 </div>
 
