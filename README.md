@@ -34,5 +34,5 @@
 ## Most Used Languages
 
 <div align="center">
-  <img src="https://github-stats-extended.vercel.app/api/top-langs/?username=n37a&layout=compact&theme=radical" alt="Most Used Languages" />
+<img src="https://github-readme-stats.vercel.app/api/top-langs/?username=n37a&layout=compact&theme=radical" alt="Most Used Languages" />
 </div>
