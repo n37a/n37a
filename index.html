@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>n37a</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #EEF1F4;
+    --surface: #FFFFFF;
+    --ink: #161A1F;
+    --ink-soft: #52596A;
+    --border: #D7DCE2;
+    --accent: #2F6D5C;
+    --accent-warm: #B9812F;
+    --term-bg: #161A1F;
+    --term-text: #E7EAEE;
+    --term-dim: #8B93A3;
+    --term-accent: #7FBF9E;
+    --radius: 10px;
+  }
+
+  * { box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body{
+    margin:0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Inter', sans-serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: inherit; }
+
+  .mono{ font-family: 'JetBrains Mono', monospace; }
+
+  ::selection{ background: var(--accent); color: #fff; }
+
+  a:focus-visible, button:focus-visible{
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  .wrap{
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* ---------- NAV ---------- */
+  header.nav{
+    position: sticky;
+    top: 0;
+    background: rgba(238,241,244,0.85);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border);
+    z-index: 10;
+  }
+  .nav-inner{
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .nav-brand{
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 600;
+    font-size: 0.95rem;
+    letter-spacing: -0.01em;
+  }
+  .nav-brand .cwd{ color: var(--term-dim); }
+  .nav-links{
+    display: flex;
+    gap: 20px;
+    align-items: center;
+  }
+  .nav-links a{
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--ink-soft);
+    transition: color 0.15s ease;
+  }
+  .nav-links a:hover{ color: var(--accent); }
+  .icon-link{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: none;
+    color: var(--ink);
+    cursor: pointer;
+    font: inherit;
+    padding: 0;
+    position: relative;
+    transition: border-color 0.15s ease, transform 0.15s ease, color 0.15s ease;
+  }
+  .icon-link:hover{
+    border-color: var(--accent);
+    color: var(--accent);
+    transform: translateY(-1px);
+  }
+  .icon-link svg{ width: 17px; height: 17px; }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    padding: 72px 0 56px;
+  }
+  .eyebrow{
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--accent);
+    text-transform: lowercase;
+    letter-spacing: 0.02em;
+    margin: 0 0 14px;
+  }
+  h1{
+    font-size: clamp(1.9rem, 4vw, 2.6rem);
+    line-height: 1.2;
+    margin: 0 0 14px;
+    letter-spacing: -0.02em;
+  }
+  .hero p.sub{
+    color: var(--ink-soft);
+    font-size: 1.05rem;
+    max-width: 52ch;
+    margin: 0 0 36px;
+  }
+
+  /* ---------- TERMINAL ---------- */
+  .terminal{
+    background: var(--term-bg);
+    border-radius: var(--radius);
+    box-shadow: 0 1px 2px rgba(20,24,30,0.06), 0 10px 30px -12px rgba(20,24,30,0.35);
+    overflow: hidden;
+  }
+  .terminal-bar{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 11px 14px;
+    background: #1D2229;
+    border-bottom: 1px solid #2A303A;
+  }
+  .dot{ width: 10px; height: 10px; border-radius: 50%; }
+  .dot.red{ background: #E5645A; }
+  .dot.yellow{ background: #E5B95A; }
+  .dot.green{ background: #5AB97D; }
+  .terminal-title{
+    margin-left: 8px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--term-dim);
+  }
+  .terminal-body{
+    padding: 22px 22px 26px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.88rem;
+    color: var(--term-text);
+    min-height: 190px;
+  }
+  .terminal-body .line{
+    margin: 0 0 4px;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+  .terminal-body .out{
+    color: var(--term-dim);
+    margin: 0 0 16px;
+  }
+  .prompt{ color: var(--term-accent); }
+  .cursor{
+    display: inline-block;
+    width: 8px;
+    height: 1em;
+    background: var(--term-accent);
+    vertical-align: text-bottom;
+    margin-left: 2px;
+    animation: blink 1s step-end infinite;
+  }
+  @media (prefers-reduced-motion: reduce){
+    .cursor{ animation: none; opacity: 1; }
+  }
+  @keyframes blink{ 50%{ opacity: 0; } }
+
+  /* ---------- SECTIONS ---------- */
+  section{ padding: 52px 0; }
+  section + section{ border-top: 1px solid var(--border); }
+
+  .section-head{
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    margin: 0 0 28px;
+  }
+  .section-head .idx{
+    font-family: 'JetBrains Mono', monospace;
+    color: var(--term-dim);
+    font-size: 0.85rem;
+  }
+  .section-head h2{
+    font-size: 1.3rem;
+    margin: 0;
+    letter-spacing: -0.01em;
+  }
+
+  /* ---------- PROJECTS ---------- */
+  .dir-line{
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.82rem;
+    color: var(--ink-soft);
+    margin: 0 0 18px;
+  }
+
+  .project{
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 22px 22px 20px;
+    margin-bottom: 16px;
+    transition: border-color 0.15s ease, transform 0.15s ease;
+  }
+  .project:hover{
+    border-color: var(--accent);
+    transform: translateY(-2px);
+  }
+  .project-top{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 10px;
+  }
+  .project-name{
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 600;
+    font-size: 1rem;
+  }
+  .project-name .path{ color: var(--term-dim); font-weight: 400; }
+  .project-status{
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--accent);
+    background: rgba(47,109,92,0.1);
+    padding: 3px 9px;
+    border-radius: 20px;
+    white-space: nowrap;
+  }
+  .project p{
+    margin: 0 0 14px;
+    color: var(--ink-soft);
+    font-size: 0.95rem;
+  }
+  .tech-row{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+  .tech-tag{
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--ink-soft);
+    border: 1px solid var(--border);
+    padding: 3px 9px;
+    border-radius: 6px;
+  }
+  .project-link{
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.82rem;
+    text-decoration: none;
+    color: var(--ink);
+    border-bottom: 1px solid var(--ink);
+    padding-bottom: 1px;
+    transition: color 0.15s ease, border-color 0.15s ease;
+  }
+  .project-link:hover{
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+  .project-link svg{ width: 13px; height: 13px; transition: transform 0.15s ease; }
+  .project-link:hover svg{ transform: translate(2px,-2px); }
+
+  /* ---------- LEARNING ---------- */
+  .skills-row{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .skill{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 9px 14px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem;
+  }
+  .skill .bar{
+    width: 34px;
+    height: 4px;
+    border-radius: 3px;
+    background: var(--border);
+    overflow: hidden;
+    position: relative;
+  }
+  .skill .bar span{
+    position: absolute;
+    left:0; top:0; bottom:0;
+    background: var(--accent);
+    border-radius: 3px;
+  }
+
+  /* ---------- CONNECT / FOOTER ---------- */
+  footer{
+    padding: 56px 0 64px;
+  }
+  .connect-lead{
+    color: var(--ink-soft);
+    max-width: 46ch;
+    margin: 0 0 26px;
+  }
+  .connect-row{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .connect-btn{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    text-align: left;
+    color: var(--ink);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 12px 18px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.88rem;
+    cursor: pointer;
+    transition: border-color 0.15s ease, transform 0.15s ease, color 0.15s ease;
+  }
+  .connect-btn:hover{
+    border-color: var(--accent);
+    color: var(--accent);
+    transform: translateY(-2px);
+  }
+  .connect-btn svg{ width: 18px; height: 18px; }
+  .connect-btn .sub{ color: var(--term-dim); font-size: 0.75rem; }
+
+  .footer-note{
+    margin-top: 40px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--term-dim);
+  }
+
+  @media (max-width: 560px){
+    .nav-links{ gap: 12px; }
+    .hero{ padding: 52px 0 40px; }
+    .terminal-body{ font-size: 0.8rem; padding: 18px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <div class="nav-brand">~/<span class="cwd">yourname</span></div>
+    <nav class="nav-links">
+      <a href="#projects">projects</a>
+      <a href="#connect">connect</a>
+      <a class="icon-link" href="https://github.com/yourusername" target="_blank" rel="noopener" aria-label="GitHub">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.7.5.7 5.6.7 12c0 5.1 3.3 9.4 7.9 11 .6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.4 1 .1-.8.4-1.3.8-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11 11 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.6.2 2.8.1 3.1.8.8 1.2 1.9 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6 4.6-1.6 7.9-5.9 7.9-11C23.3 5.6 18.3.5 12 .5z"/></svg>
+      </a>
+      <button class="icon-link" type="button" id="discordIconBtn" aria-label="Copy Discord username" data-discord="yourusername">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.3 4.4A19.8 19.8 0 0 0 15.4 3c-.2.4-.5 1-.7 1.4a18.3 18.3 0 0 0-5.4 0c-.2-.4-.4-1-.7-1.4-1.7.3-3.3.8-4.9 1.4C1 8.4.3 12.3.6 16.2c2 1.5 4 2.4 5.9 3 .5-.6.9-1.3 1.3-2a12 12 0 0 1-2-1c.2-.1.3-.3.5-.4 3.9 1.8 8.1 1.8 12 0l.4.4c-.6.4-1.3.7-2 1 .4.7.8 1.4 1.3 2 1.9-.6 3.9-1.5 5.9-3 .4-4.6-.8-8.4-3.6-11.8ZM8.7 13.9c-1.2 0-2.1-1.1-2.1-2.4s.9-2.4 2.1-2.4c1.2 0 2.1 1.1 2.1 2.4 0 1.3-.9 2.4-2.1 2.4Zm6.6 0c-1.2 0-2.1-1.1-2.1-2.4s.9-2.4 2.1-2.4c1.2 0 2.1 1.1 2.1 2.4 0 1.3-.9 2.4-2.1 2.4Z"/></svg>
+      </button>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="hero">
+    <p class="eyebrow">$ whoami</p>
+    <h1>Building my way up the command line.</h1>
+    <p class="sub">I'm learning Python and Linux from the ground up — writing small scripts, breaking my terminal, and slowly figuring out what I'm doing.</p>
+
+    <div class="terminal">
+      <div class="terminal-bar">
+        <span class="dot red"></span>
+        <span class="dot yellow"></span>
+        <span class="dot green"></span>
+        <span class="terminal-title">n37a@portfolio: ~</span>
+      </div>
+      <div class="terminal-body" id="termBody">
+        <!-- filled by JS -->
+      </div>
+    </div>
+  </section>
+
+  <section id="learning">
+    <div class="section-head">
+      <span class="idx">$</span>
+      <h2>ls skills/</h2>
+    </div>
+    <p class="dir-line">still early, still learning — here's roughly where things stand.</p>
+    <div class="skills-row">
+      <div class="skill">python <span class="bar"><span style="width:38%"></span></span></div>
+      <div class="skill">linux <span class="bar"><span style="width:32%"></span></span></div>
+      <div class="skill">git <span class="bar"><span style="width:45%"></span></span></div>
+      <div class="skill">bash <span class="bar"><span style="width:40%"></span></span></div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <div class="section-head">
+      <span class="idx">$</span>
+      <h2>ls ~/projects</h2>
+    </div>
+    <p class="dir-line">// two things I've actually finished — more on the way</p>
+
+    <div class="project">
+      <div class="project-top">
+        <div class="project-name">01<span class="path"> — </span>terminal-todo</div>
+        <span class="project-status">shipped</span>
+      </div>
+      <p>A to-do list that lives entirely in the terminal. Add, check off, and delete tasks with simple commands, with everything saved to a local text file so nothing's lost when you close it.</p>
+      <div class="tech-row">
+        <span class="tech-tag">python</span>
+        <span class="tech-tag">file i/o</span>
+        <span class="tech-tag">cli</span>
+      </div>
+      <a class="project-link" href="https://github.com/yourusername/terminal-todo" target="_blank" rel="noopener">
+        view repo
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M7 7h10v10"/></svg>
+      </a>
+    </div>
+
+    <div class="project">
+      <div class="project-top">
+        <div class="project-name">02<span class="path"> — </span>dotfiles</div>
+        <span class="project-status">shipped</span>
+      </div>
+      <p>My personal Linux setup, scripted. A shell script that installs my everyday tools and drops in my preferred config, so a fresh machine looks like home in a couple of minutes.</p>
+      <div class="tech-row">
+        <span class="tech-tag">bash</span>
+        <span class="tech-tag">linux</span>
+        <span class="tech-tag">shell scripting</span>
+      </div>
+      <a class="project-link" href="https://github.com/yourusername/dotfiles" target="_blank" rel="noopener">
+        view repo
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M7 7h10v10"/></svg>
+      </a>
+    </div>
+  </section>
+
+  <footer id="connect">
+    <div class="section-head">
+      <span class="idx">$</span>
+      <h2>connect</h2>
+    </div>
+    <p class="connect-lead">Always happy to talk shop, swap beginner mistakes, or hear what you're building.</p>
+    <div class="connect-row">
+      <a class="connect-btn" href="https://github.com/yourusername" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.7.5.7 5.6.7 12c0 5.1 3.3 9.4 7.9 11 .6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.4 1 .1-.8.4-1.3.8-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11 11 0 0 1 6 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.6.2 2.8.1 3.1.8.8 1.2 1.9 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6 4.6-1.6 7.9-5.9 7.9-11C23.3 5.6 18.3.5 12 .5z"/></svg>
+        <span>GitHub<br><span class="sub">@n37a</span></span>
+      </a>
+      <button class="connect-btn" type="button" id="discordConnectBtn" data-discord="yourusername">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.3 4.4A19.8 19.8 0 0 0 15.4 3c-.2.4-.5 1-.7 1.4a18.3 18.3 0 0 0-5.4 0c-.2-.4-.4-1-.7-1.4-1.7.3-3.3.8-4.9 1.4C1 8.4.3 12.3.6 16.2c2 1.5 4 2.4 5.9 3 .5-.6.9-1.3 1.3-2a12 12 0 0 1-2-1c.2-.1.3-.3.5-.4 3.9 1.8 8.1 1.8 12 0l.4.4c-.6.4-1.3.7-2 1 .4.7.8 1.4 1.3 2 1.9-.6 3.9-1.5 5.9-3 .4-4.6-.8-8.4-3.6-11.8ZM8.7 13.9c-1.2 0-2.1-1.1-2.1-2.4s.9-2.4 2.1-2.4c1.2 0 2.1 1.1 2.1 2.4 0 1.3-.9 2.4-2.1 2.4Zm6.6 0c-1.2 0-2.1-1.1-2.1-2.4s.9-2.4 2.1-2.4c1.2 0 2.1 1.1 2.1 2.4 0 1.3-.9 2.4-2.1 2.4Z"/></svg>
+        <span>Discord<br><span class="sub" id="discordConnectLabel">@remoraze · click to copy</span></span>
+      </button>
+    </div>
+    <p class="footer-note">// Feel free to send me a dm.</p>
+  </footer>
+
+</main>
+
+<script>
+  const lines = [
+    { type: "prompt", text: "whoami" },
+    { type: "out", text: "n37a — learning Python & Linux, one command at a time" },
+    { type: "prompt", text: "cat status.txt" },
+    { type: "out", text: "currently: beginner.\\nalways: curious." }
+  ];
+
+  const el = document.getElementById('termBody');
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function renderStatic(){
+    el.innerHTML = lines.map(l => {
+      if(l.type === 'prompt'){
+        return `<p class="line"><span class="prompt">$</span> ${l.text}</p>`;
+      }
+      return `<p class="out line">${l.text.replace(/\\n/g,'<br>')}</p>`;
+    }).join('') + '<span class="cursor"></span>';
+  }
+
+  async function typeLine(text, container, speed){
+    for(let i=0;i<=text.length;i++){
+      container.innerHTML = text.slice(0,i).replace(/\\n/g,'<br>');
+      await new Promise(r => setTimeout(r, speed));
+    }
+  }
+
+  async function playSequence(){
+    el.innerHTML = '';
+    for(const l of lines){
+      const p = document.createElement('p');
+      p.className = l.type === 'prompt' ? 'line' : 'out line';
+      el.appendChild(p);
+      if(l.type === 'prompt'){
+        p.innerHTML = '<span class="prompt">$</span> ';
+        const span = document.createElement('span');
+        p.appendChild(span);
+        await typeLine(l.text, span, 28);
+        await new Promise(r => setTimeout(r, 200));
+      } else {
+        await typeLine(l.text, p, 10);
+        await new Promise(r => setTimeout(r, 300));
+      }
+    }
+    const cursor = document.createElement('span');
+    cursor.className = 'cursor';
+    el.appendChild(cursor);
+  }
+
+  if(reduceMotion){
+    renderStatic();
+  } else {
+    playSequence();
+  }
+
+  async function copyDiscord(username){
+    try{
+      await navigator.clipboard.writeText(username);
+      return true;
+    }catch(e){
+      return false;
+    }
+  }
+
+  const iconBtn = document.getElementById('discordIconBtn');
+  if(iconBtn){
+    iconBtn.addEventListener('click', async () => {
+      const ok = await copyDiscord(iconBtn.dataset.discord);
+      const original = iconBtn.getAttribute('aria-label');
+      iconBtn.setAttribute('aria-label', ok ? 'Copied!' : 'Copy failed');
+      iconBtn.style.borderColor = 'var(--accent)';
+      iconBtn.style.color = 'var(--accent)';
+      setTimeout(() => {
+        iconBtn.setAttribute('aria-label', original);
+        iconBtn.style.borderColor = '';
+        iconBtn.style.color = '';
+      }, 1400);
+    });
+  }
+
+  const connectBtn = document.getElementById('discordConnectBtn');
+  const connectLabel = document.getElementById('discordConnectLabel');
+  if(connectBtn && connectLabel){
+    const originalLabel = connectLabel.textContent;
+    connectBtn.addEventListener('click', async () => {
+      const ok = await copyDiscord(connectBtn.dataset.discord);
+      connectLabel.textContent = ok ? 'copied to clipboard' : 'copy failed — try manually';
+      setTimeout(() => { connectLabel.textContent = originalLabel; }, 1600);
+    });
+  }
+</script>
+
+</body>
+</html>
