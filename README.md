@@ -11,7 +11,7 @@
 
 ### Languages & Tools I'm Learning:
 
-<p align="left">
+<p align="middle">
   <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg" alt="Python" width="50" height="50"/>
   <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/linux/linux-original.svg" alt="Linux" width="50" height="50"/>
   <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/bash/bash-original.svg" alt="Bash" width="50" height="50"/>
@@ -24,7 +24,7 @@
 ## GitHub Stats
 
 <div align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=n37a&show_icons=true&theme=radical" alt="GitHub Stats" />
+  <img src="https://githubcard.com/n37a.svg" alt="GitHub Stats" />
   <br/>
   <img src="https://github-readme-streak-stats.herokuapp.com/?user=n37a&theme=radical" alt="GitHub Streak" />
 </div>
