@@ -19,7 +19,7 @@
 
 <h2 align="center">GitHub Stats</h2>
 <div align="center">
-  <img src="https://github-readme-streak-stats.herokuapp.com/?user=n37a&theme=radical" alt="GitHub Streak" />
+  <img src="https://github-readme-streak-stats.herokuapp.com/?user=n37a" alt="GitHub Streak" />
 </div>
 
 
