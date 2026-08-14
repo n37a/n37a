@@ -4,10 +4,7 @@
   <img src="https://komarev.com/ghpvc/?username=n37a&color=blueviolet" alt="Profile Views" />
 </p>
 
-
-
-<h2 align="center">Stack</h2>
-<h3 align="center">Languages & Tools I'm Learning:</h3>
+<h2 align="center">Languages & Tools I'm Learning:</h2>
 <p align="middle">
   <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg" alt="Python" width="50" height="50"/>
   <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/linux/linux-original.svg" alt="Linux" width="50" height="50"/>
